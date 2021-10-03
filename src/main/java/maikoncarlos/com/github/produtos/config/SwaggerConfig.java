@@ -30,14 +30,14 @@ public class SwaggerConfig {
     }
 
     private ApiInfo metaInfo() {
-        ApiInfo apiInfo =new ApiInfo(
+        ApiInfo apiInfo = new ApiInfo(
                 "Api Rest - Spring Boot",
-                "API REST de cadastro de produtos",
+                "API REST - Cadastro de Products",
                 "1.0",
                 "Terms of Service",
                 new Contact(
                         "Maikon Carlos",
-                        "github.com/Maikoncarlos",
+                        "https://github.com/Maikoncarlos",
                         "maikonsaturno@gmail.com"),
                 "Apache License Version 2.0",
                 "https://www.apache.org/license.html", new ArrayList<VendorExtension>()
