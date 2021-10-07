@@ -42,12 +42,15 @@ public class ProdutoResources {
 
     @PutMapping("/produto/{id}")
     @ApiOperation(value = "Atualiza um produto")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizaProduto(@PathVariable Long id, @RequestBody Produto produto) {
          service.atualizaProduto(id, produto);
+
     }
 
     @PostMapping("/produto-delete/{id}")
     @ApiOperation(value = "Deleta um produto")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deletaProduto(@PathVariable Long id ) {
         service.excluirProduto(id);
     }

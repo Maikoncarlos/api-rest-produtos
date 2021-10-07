@@ -28,7 +28,8 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    public void atualizaProduto(Long id, Produto produtoatualizado) {
+    public void
+    atualizaProduto(Long id, Produto produtoatualizado) {
         produtoRepository.findById(id).map(produto -> {
                     produto.setNome(produtoatualizado.getNome());
                     produto.setQuantidade(produtoatualizado.getQuantidade());
