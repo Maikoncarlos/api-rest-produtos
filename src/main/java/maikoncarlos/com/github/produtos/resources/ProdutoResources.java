@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/")
+@RequestMapping("api/")
 @Api(value = "API REST Produtos")
 @CrossOrigin(origins = "*")
 public class ProdutoResources {
@@ -21,37 +22,35 @@ public class ProdutoResources {
 
     @GetMapping("/produtos")
     @ApiOperation(value = "Retorna uma lista de produtos")
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public List<Produto> listaProdutos() {
         return service.getProdutos();
     }
 
     @GetMapping("/produto/{id}")
     @ApiOperation(value = "Retorna um produto especifico")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Produto listaUmProduto(@PathVariable Long id) {
+    public Produto listaUmProduto(@PathVariable @Valid Long id) {
         return service.getProdutoId(id);
     }
 
     @PostMapping("/produto")
     @ApiOperation(value = "Salva um produto")
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto salvaProduto(@RequestBody Produto produto) {
+    public Produto salvaProduto(@RequestBody @Valid Produto produto)  {
         return service.novoProduto(produto);
     }
 
-    @PutMapping("/produto/{id}")
+    @PutMapping("/produto")
     @ApiOperation(value = "Atualiza um produto")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void atualizaProduto(@PathVariable Long id, @RequestBody Produto produto) {
-         service.atualizaProduto(id, produto);
+    public void atualizaProduto(@RequestBody @Valid Produto produto) {
+        service.atualizaProduto(produto);
 
     }
 
     @PostMapping("/produto-delete/{id}")
-    @ApiOperation(value = "Deleta um produto")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletaProduto(@PathVariable Long id ) {
+    @ApiOperation(value = "Deleta um produto")//configuração para o swagger.
+    @ResponseStatus(HttpStatus.NO_CONTENT)//status se não houver nenhum erro !!!
+    public void deletaProduto(@PathVariable @Valid Long id) {
         service.excluirProduto(id);
     }
 }

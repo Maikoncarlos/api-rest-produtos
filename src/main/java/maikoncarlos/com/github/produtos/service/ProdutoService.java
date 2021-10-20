@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -24,16 +25,16 @@ public class ProdutoService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
     }
 
-    public Produto novoProduto(Produto produto) {
-        return produtoRepository.save(produto);
+    public Produto novoProduto(@Valid Produto produto)  {
+         return produtoRepository.save(produto);
     }
 
     public void
-    atualizaProduto(Long id, Produto produtoatualizado) {
-        produtoRepository.findById(id).map(produto -> {
-                    produto.setNome(produtoatualizado.getNome());
-                    produto.setQuantidade(produtoatualizado.getQuantidade());
-                    produto.setValor(produtoatualizado.getValor());
+    atualizaProduto(Produto produtoatualizado) {
+        produtoRepository.findById(Long.valueOf(produtoatualizado.getId())).map(produto -> {
+                    produto.setNomeProduto(produtoatualizado.getNomeProduto());
+                    produto.setQuantidadeEmEstoque(produtoatualizado.getQuantidadeEmEstoque());
+                    produto.setValorDoProduto(produtoatualizado.getValorDoProduto());
                     return produtoRepository.save(produto);
                 })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
