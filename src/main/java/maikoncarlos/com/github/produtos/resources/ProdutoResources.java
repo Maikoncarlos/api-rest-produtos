@@ -41,7 +41,7 @@ public class ProdutoResources {
 
     @PutMapping("/produto")
     @ApiOperation(value = "Atualiza um produto")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void atualizaProduto(@RequestBody @Valid Produto produto) {
         service.atualizaProduto(produto);
 
@@ -49,7 +49,7 @@ public class ProdutoResources {
 
     @PostMapping("/produto-delete/{id}")
     @ApiOperation(value = "Deleta um produto")//configuração para o swagger.
-    @ResponseStatus(HttpStatus.NO_CONTENT)//status se não houver nenhum erro !!!
+    @ResponseStatus(HttpStatus.OK)//status se não houver nenhum erro !!!
     public void deletaProduto(@PathVariable @Valid Long id) {
         service.excluirProduto(id);
     }
