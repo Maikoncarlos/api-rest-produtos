@@ -22,32 +22,27 @@ public class ProdutoService {
 
     public Produto getProdutoId(Long id) {
         return produtoRepository.findById(id).orElseThrow(() ->
-                new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+                new ResponseStatusException(HttpStatus.NO_CONTENT, "Cliente não encontrado"));
     }
 
-    public Produto novoProduto(@Valid Produto produto)  {
-         return produtoRepository.save(produto);
+    public Produto novoProduto(@Valid Produto produto) {
+        return produtoRepository.save(produto);
     }
 
     public void
-    atualizaProduto(Produto produtoatualizado) {
+    atualizaProduto(@Valid Produto produtoatualizado) {
         produtoRepository.findById(Long.valueOf(produtoatualizado.getId())).map(produto -> {
-                    produto.setNomeProduto(produtoatualizado.getNomeProduto());
-                    produto.setQuantidadeEmEstoque(produtoatualizado.getQuantidadeEmEstoque());
-                    produto.setValorDoProduto(produtoatualizado.getValorDoProduto());
-                    return produtoRepository.save(produto);
-                })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
+            produto.setNomeProduto(produtoatualizado.getNomeProduto());
+            produto.setQuantidadeEmEstoque(produtoatualizado.getQuantidadeEmEstoque());
+            produto.setValorDoProduto(produtoatualizado.getValorDoProduto());
+            return produtoRepository.save(produto);
+        });
     }
 
     public void excluirProduto(Long id) {
         produtoRepository.findById(id).map(produto -> {
-                    produtoRepository.delete(produto);
-                    return Void.TYPE;
-                })
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado"));
-
+            produtoRepository.delete(produto);
+            return Void.TYPE;
+        });
     }
-
 }
-
